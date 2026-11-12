@@ -1,0 +1,50 @@
+{
+  "name": "yahoo-ranking-html-assistant",
+  "version": "1.1.0",
+  "private": true,
+  "description": "Backup-first Yahoo GLV ranking HTML automation for the existing Excel CODE sheet.",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test tests/*.test.js",
+    "dist:portable": "electron-builder --win portable --x64",
+    "build:portable": "npm run build:portable"
+  },
+  "devDependencies": {
+    "builder": "^5.0.0",
+    "electron": "^45.3.1",
+    "electron-builder": "^26.18.0"
+  },
+  "build": {
+    "appId": "inc.gulliver.yahoo-ranking-html-assistant",
+    "productName": "Yahoo Ranking Assistant",
+    "asar": true,
+    "files": [
+      "src/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "scripts",
+        "to": "backend",
+        "filter": [
+          "**/*.ps1"
+        ]
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "Yahoo_Ranking_Assistant_v${version}_Portable.exe"
+    },
+    "directories": {
+      "output": "dist"
+    }
+  }
+}

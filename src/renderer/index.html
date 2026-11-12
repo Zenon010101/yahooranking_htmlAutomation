@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>Yahoo Ranking Assistant</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="brand-mark">YR</span>
+        <div><strong>Yahoo Ranking</strong><small>HTML ASSISTANT</small></div>
+      </div>
+      <div class="side-section-label">WORKSPACE</div>
+      <div class="nav-current"><span class="nav-symbol">▣</span> Dashboard</div>
+      <div class="side-info">
+        <div class="side-info-label">RANKING ROOT</div>
+        <div id="root-short" class="side-path">Checking...</div>
+        <div class="side-status"><span id="side-dot" class="dot"></span><span id="side-connected">Checking files</span></div>
+      </div>
+      <div class="side-section-label">WORKFLOW</div>
+      <div class="side-guide"><span class="side-guide-num">01</span><div><b>Manual Excel</b><small>Choose correct IDs + brands</small></div></div>
+      <div class="side-guide"><span class="side-guide-num">02</span><div><b>Save + close</b><small>All ranking sheets finalized</small></div></div>
+      <div class="side-guide"><span class="side-guide-num">03</span><div><b>Run assistant</b><small>Backup, CODE, HTML update</small></div></div>
+      <div class="side-divider"></div>
+      <p class="side-foot">No scheduler. No Yahoo upload. The original HTML layout stays intact.</p>
+      <div class="side-version" id="version">v1.1</div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div><div class="eyebrow">YAHOO GLV / RANKING</div><h1>Ranking HTML Automation</h1><p>Update your existing rankspnew.html from the Excel CODE sheet.</p></div>
+        <span id="health-pill" class="status-pill neutral">Checking files</span>
+      </header>
+
+      <div class="content">
+        <section class="notice">
+          <span class="notice-icon">i</span>
+          <div><b>Complete the manual Excel work first</b><p>Update the 10 product IDs and brand names in each category, then save and close <strong>YAHOO-RANKING COPYPASTE.xlsx</strong> before running Preview or Update.</p></div>
+        </section>
+
+        <section class="panel path-panel">
+          <div class="panel-head"><div><h2>Project location</h2><p>Automatically points to your G: shared-drive ranking folder.</p></div><button id="check" class="btn subtle" type="button">Check files</button></div>
+          <label for="root">Ranking root</label>
+          <div class="path-row"><input id="root" type="text" spellcheck="false" autocomplete="off"><button id="browse" class="btn subtle" type="button">Browse</button><button id="save-root" class="btn subtle" type="button">Save path</button></div>
+          <div class="file-row"><span><i id="file-dot" class="dot"></i><b id="file-check">Checking folders...</b></span><span id="last-html" class="muted small"></span></div>
+          <div id="path-error" class="error-line" hidden></div>
+        </section>
+
+        <div class="stat-grid">
+          <div class="stat-card"><div class="stat-icon">▦</div><div><div class="stat-value">9 <span>categories</span></div><p>Excel CODE / HTML sections</p></div></div>
+          <div class="stat-card"><div class="stat-icon">▤</div><div><div class="stat-value">90 <span>items</span></div><p>10 products per category</p></div></div>
+          <div class="stat-card"><div class="stat-icon">◷</div><div><div class="stat-value" id="backup-next">—</div><p>Next numbered [REP] backup</p></div></div>
+        </div>
+
+        <section class="panel action-panel">
+          <div class="panel-head"><div><h2>Run automation</h2><p>Preview first, then update after checking all nine categories.</p></div><span class="tag">MANUAL RUN</span></div>
+          <div class="actions">
+            <div class="action-card">
+              <div class="action-icon sky">◉</div><h3>1. Preview ranking</h3>
+              <p>Calculate Excel CODE values and generate a review draft. Does not modify the active files.</p>
+              <button id="preview" class="btn outline primary-text" type="button">Generate Preview <span>→</span></button>
+            </div>
+            <div class="action-card emphasis">
+              <div class="action-icon violet">↻</div><h3>2. Update HTML</h3>
+              <p>Back up the original first, refresh Excel static CODE cells, then update only the marked HTML content.</p>
+              <button id="update" class="btn primary" type="button">Backup &amp; Update HTML <span>→</span></button>
+            </div>
+          </div>
+          <div class="action-footer"><button id="open-preview" class="text-link" type="button" disabled>Open generated preview</button><button id="open-html" class="text-link" type="button">Open active HTML</button><button id="open-backups" class="text-link" type="button">Open [REP]</button></div>
+        </section>
+
+        <div class="lower-grid">
+          <section class="panel category-panel">
+            <div class="panel-head"><div><h2>Category CODE mapping</h2><p>Only the second J-column cell is inserted into HTML.</p></div><span id="category-summary" class="tag neutral">Ready for review</span></div>
+            <div class="category-list" id="categories"></div>
+          </section>
+
+          <section class="panel backup-panel">
+            <div class="panel-head"><div><h2>Restore previous HTML</h2><p>Restore an older version if the latest ranking is wrong.</p></div></div>
+            <label for="backup-choice">Existing [REP] backups</label>
+            <select id="backup-choice"><option value="">No backups loaded</option></select>
+            <p class="help">Restore also backs up your current HTML with the next number first.</p>
+            <button id="restore" type="button" class="btn outline full">Restore selected backup</button>
+            <hr>
+            <h3 class="small-heading">What stays unchanged?</h3>
+            <div class="safety-line"><span class="safety-check">✓</span> Category headings &amp; comments</div>
+            <div class="safety-line"><span class="safety-check">✓</span> CSS, links, footer &amp; scripts</div>
+            <div class="safety-line"><span class="safety-check">✓</span> Product HTML structure</div>
+            <div class="safety-line"><span class="safety-check">✓</span> Yahoo upload remains manual</div>
+          </section>
+        </div>
+
+        <section class="panel logs-panel">
+          <div class="panel-head"><div><h2>Activity log</h2><p>Shows every important step, validation and backup.</p></div><button class="btn subtle" id="logs-folder" type="button">Open logs folder</button></div>
+          <div class="progressbar"><span id="progressfill"></span></div>
+          <div class="progress-row"><span id="progress-message">Not started</span><span id="progress-state">Idle</span></div>
+          <div class="terminal" id="logs" role="log" aria-live="polite"><div class="log-placeholder">No operations yet. Run Preview to check your updated Excel ranking.</div></div>
+          <div id="results" class="result" hidden></div>
+        </section>
+        <footer>Ranking Assistant v1.1 · No automatic scheduling · Review before publishing to Yahoo</footer>
+      </div>
+    </main>
+  </div>
+
+  <div id="confirm-backdrop" class="modal-backdrop" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
+      <div class="modal-icon">!</div>
+      <h2 id="confirm-title">Confirm update</h2>
+      <p id="confirm-description">This will back up and update the ranking HTML.</p>
+      <label id="confirm-label" for="confirm-text">Type UPDATE to continue</label>
+      <input id="confirm-text" autocomplete="off" spellcheck="false" placeholder="UPDATE">
+      <div class="modal-actions"><button id="confirm-cancel" class="btn subtle" type="button">Cancel</button><button id="confirm-accept" class="btn primary" type="button" disabled>Confirm</button></div>
+    </div>
+  </div>
+  <script src="./renderer.js"></script>
+</body>
+</html>
